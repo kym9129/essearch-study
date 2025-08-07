@@ -16,6 +16,41 @@
     * 실시간 데이터 반영
     * 오픈서치 쿼리 DSL
     * 모니터링 & 장애 대응
+---
+### 사용법
+- essearch, kibana 컨테이너 실행
+```bash
+docker-compose up -d
+```
+
+- elasticsearch 상태 확인
+```bash
+curl http://localhost:9200/_cluster/health
+```
+
+- kibana
+  - 브라우저에서 `http://localhost:5601` 접속
+
+#### 테스트용 데이터
+```bash
+[데이터 생성]
+curl -X POST http://localhost:8080/api/sample-data/generate
+
+[삭제]
+curl -X DELETE http://localhost:8080/api/sample-data/clear
+```
+
+키바나 콘솔 (사이드 메뉴>DevTools)
+```aiignore
+[광고 상품 조회]
+GET ad_products/_search
+
+[광고 통계 조회]
+GET ad_statistics/_search
+```
+
+
+
 
 ## 🗂 과제 목록
 
@@ -29,20 +64,6 @@
     * Docker Compose로 OpenSearch + OpenSearch Dashboards 설치
     * API를 통한 색인/조회 테스트
 * **핵심 학습**: 클러스터 구조 이해, Dashboards 사용법
----
-#### 사용법
-- docker 컨테이너 실행
-```bash
-docker-compose up -d
-```
-
-- elasticsearch 상태 확인
-```bash
-curl http://localhost:9200/_cluster/health
-```
-
-- kibana
-  - 브라우저에서 `http://localhost:5601` 접속
 
 ---
 
