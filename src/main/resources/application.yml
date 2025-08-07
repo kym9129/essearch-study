@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: elasticsearch-study
+  
+  elasticsearch:
+    uris: http://localhost:9200
+    connection-timeout: 5s
+    socket-timeout: 30s
+    
+  data:
+    elasticsearch:
+      client:
+        reactive:
+          endpoints: localhost:9200
+          use-ssl: false
+
+logging:
+  level:
+    org.springframework.data.elasticsearch: DEBUG
+    org.elasticsearch: DEBUG
