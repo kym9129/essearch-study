@@ -30,19 +30,19 @@ dependencies {
 	
 	// Elasticsearch 스타터
 	implementation("org.springframework.boot:spring-boot-starter-data-elasticsearch")
-	
+
+	// Kafka 스타터
+	implementation("org.springframework.kafka:spring-kafka")
+
 	// Jackson Kotlin 모듈 (JSON 처리)
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	
 	// Kotlin 리플렉션
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	
-	// Lombok (Kotlin에서는 불필요하지만 기존 코드 호환성을 위해 유지)
-//	compileOnly("org.projectlombok:lombok")
-//	annotationProcessor("org.projectlombok:lombok")
-	
 	// 테스트 의존성
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.springframework.kafka:spring-kafka-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }

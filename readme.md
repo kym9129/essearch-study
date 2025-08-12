@@ -31,7 +31,7 @@ curl http://localhost:9200/_cluster/health
 - kibana
   - 브라우저에서 `http://localhost:5601` 접속
 
-#### 테스트용 데이터
+#### 테스트용 데이터 관리 API
 ```bash
 [데이터 생성]
 curl -X POST http://localhost:8080/api/sample-data/generate
@@ -40,16 +40,31 @@ curl -X POST http://localhost:8080/api/sample-data/generate
 curl -X DELETE http://localhost:8080/api/sample-data/clear
 ```
 
-키바나 콘솔 (사이드 메뉴>DevTools)
-```aiignore
-[광고 상품 조회]
+
+#### 키바나 콘솔 (사이드 메뉴>DevTools)
+```bash
+# 광고 상품 조회
 GET ad_products/_search
 
-[광고 통계 조회]
+# 광고 통계 조회
 GET ad_statistics/_search
+
+# 광고 상품 삭제
+POST ad_products/_delete_by_query
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+# 광고 통계 삭제
+POST ad_statistics/_delete_by_query
+{
+  "query": {
+    "match_all": {}
+  }
+}
 ```
-
-
 
 
 ## 🗂 과제 목록
@@ -140,6 +155,37 @@ GET ad_statistics/_search
 * **핵심 학습**: 운영 관점에서 오픈서치 다루기
 
 ---
+
+### 번외. 카프카 통계 이벤트 처리
+
+* **목표**: 카프카 스트림즈에서 발행한 아웃풋 토픽 처리 연습
+* **내용**
+
+    * 통계 토픽 컨슘
+    * 통계 데이터 ElasticSearch에 저장
+* **핵심 학습**: 카프카와 오픈서치 같이 다루기
+
+### 사용법
+
+1. **시스템 상태 확인**:
+``` bash
+   curl http://localhost:8080/api/health
+```
+
+2. **테스트 메시지 발송**:
+``` bash
+   # 단일 메시지
+   curl -X POST "http://localhost:8080/api/test/kafka/send-messages?count=20"
+   
+   # 배치 메시지
+   curl -X POST "http://localhost:8080/api/test/kafka/send-batch-messages?batchSize=5&batchCount=3"
+```
+
+3. **ElasticSearch에서 데이터 확인**:
+``` bash
+   curl http://localhost:9200/ad_statistics/_search?pretty
+```
+
 
 ## 📘 스터디 진행 방식
 
